@@ -1,0 +1,19 @@
+{
+  "name": "soulmate-diary",
+  "version": "0.1.0",
+  "description": "Soul-linked diary web app with matching and multi-channel login.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "diary",
+    "matching",
+    "wechat"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs"
+}

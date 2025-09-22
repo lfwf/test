@@ -1,0 +1,50 @@
+{
+  "users": [],
+  "diaries": [],
+  "loginChallenges": [],
+  "wechatChallenges": [],
+  "matchRequests": [],
+  "matches": [],
+  "sessions": [],
+  "prompts": [
+    {
+      "id": "sunrise-intent",
+      "title": "今天最想感谢的人是谁?",
+      "description": "写下你今天想说声谢谢的那个名字，以及原因。",
+      "mood": "hopeful"
+    },
+    {
+      "id": "night-scan",
+      "title": "记录一个小小的瞬间",
+      "description": "想一想今天哪个瞬间让你感到心动、安心或释怀。",
+      "mood": "reflective"
+    },
+    {
+      "id": "pair-share",
+      "title": "如果把今天的你比作一种天气",
+      "description": "描述一下此刻你的天气，并告诉未来的匹配伙伴原因。",
+      "mood": "sunny"
+    },
+    {
+      "id": "shadow-work",
+      "title": "写下一个你正在消化的情绪",
+      "description": "面对它、命名它，再给自己一个小小的回应。",
+      "mood": "stormy"
+    },
+    {
+      "id": "tiny-victory",
+      "title": "今天的小胜利是什么?",
+      "description": "也许是按时起床，也许是完成了一个微小但困难的决定。",
+      "mood": "sunny"
+    },
+    {
+      "id": "soul-note",
+      "title": "留一句话给未来的匹配对象",
+      "description": "描述你希望对方读到这句话时的感受。",
+      "mood": "nostalgic"
+    }
+  ],
+  "meta": {
+    "version": 1
+  }
+}

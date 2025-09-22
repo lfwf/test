@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>灵感匹配日记 SoulSync</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="toast"></div>
+    <header>
+      <h1>灵感匹配日记 SoulSync</h1>
+      <p>用更轻盈的四个区域，完成灵感记录、灵魂匹配以及资料管理。邮箱、手机号或微信扫码均可快速登录。</p>
+    </header>
+    <main>
+      <section id="auth-section">
+        <div class="card auth-card">
+          <h2>邮箱验证码登录</h2>
+          <form id="email-request-form">
+            <label for="email-input">邮箱地址</label>
+            <input id="email-input" type="email" placeholder="you@example.com" required />
+            <button type="submit">获取验证码</button>
+            <small class="hint">验证码仅用于演示，将直接显示在下方。</small>
+            <div id="email-code-display" class="hint"></div>
+          </form>
+          <form id="email-verify-form">
+            <label for="email-code">验证码</label>
+            <input id="email-code" maxlength="6" autocomplete="one-time-code" required />
+            <label for="email-name">昵称</label>
+            <input id="email-name" placeholder="为你取一个暖心的称呼" />
+            <label for="email-gender">性别</label>
+            <select id="email-gender">
+              <option value="secret">保密</option>
+              <option value="female">女性</option>
+              <option value="male">男性</option>
+              <option value="non-binary">非二元</option>
+            </select>
+            <label for="email-preference">匹配偏好</label>
+            <select id="email-preference">
+              <option value="any">不限</option>
+              <option value="female">女性</option>
+              <option value="male">男性</option>
+              <option value="non-binary">非二元</option>
+            </select>
+            <button type="submit">立即登录</button>
+          </form>
+        </div>
+        <div class="card auth-card">
+          <h2>手机号快捷登录</h2>
+          <form id="phone-request-form">
+            <label for="phone-input">手机号</label>
+            <input id="phone-input" placeholder="例如 +86137..." required />
+            <button type="submit">发送验证码</button>
+            <div id="phone-code-display" class="hint"></div>
+          </form>
+          <form id="phone-verify-form">
+            <label for="phone-code">验证码</label>
+            <input id="phone-code" maxlength="6" required />
+            <label for="phone-name">昵称</label>
+            <input id="phone-name" placeholder="留下一个温柔的昵称" />
+            <button type="submit">验证并登录</button>
+          </form>
+        </div>
+        <div class="card auth-card">
+          <h2>微信扫码登录（开发模拟）</h2>
+          <div id="wechat-board">
+            <button id="wechat-generate">生成扫码二维码</button>
+            <div id="wechat-qr" class="qr-board hidden"></div>
+            <div id="wechat-token" class="hint"></div>
+            <div id="wechat-simulator" class="hidden">
+              <label for="wechat-nickname">模拟昵称</label>
+              <input id="wechat-nickname" placeholder="小程序里的你" />
+              <label for="wechat-gender">模拟性别</label>
+              <select id="wechat-gender">
+                <option value="female">女性</option>
+                <option value="male">男性</option>
+                <option value="non-binary">非二元</option>
+              </select>
+              <button type="button" id="wechat-confirm">模拟扫码确认</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="dashboard" class="hidden">
+        <div class="card dashboard-header">
+          <div>
+            <h2 id="dashboard-greeting">灵魂旅人，欢迎回来</h2>
+            <p class="hint" id="dashboard-subtitle">在「概览、写日记、灵魂匹配、个人资料」之间切换，页面不再拥挤。</p>
+          </div>
+        </div>
+        <nav class="dashboard-tabs" id="dashboard-tabs" aria-label="功能切换">
+          <button type="button" class="tab active" data-view-target="overview">概览</button>
+          <button type="button" class="tab" data-view-target="journal">写日记</button>
+          <button type="button" class="tab" data-view-target="match">灵魂匹配</button>
+          <button type="button" class="tab" data-view-target="profile">个人资料</button>
+        </nav>
+        <div class="dashboard-views">
+          <section class="dashboard-view active view-columns" data-view="overview" aria-label="概览">
+            <div class="card panel" id="prompt-panel">
+              <h3>今日灵感提示</h3>
+              <div id="prompt-content">
+                <p class="hint">登录后会为你准备一条新的写作灵感。</p>
+              </div>
+            </div>
+            <div class="card panel" id="insights-panel">
+              <h3>我的记录进度</h3>
+              <div id="diary-insights" class="insights-body">
+                <p class="hint">记录几天后，这里会看到你的写作统计。</p>
+              </div>
+              <div id="overview-latest" class="latest-entry">最新日记会展示在这里。</div>
+            </div>
+          </section>
+          <section class="dashboard-view view-columns" data-view="journal" aria-label="日记">
+            <div class="card panel" id="diary-panel">
+              <h3>写下今天的日记</h3>
+              <form id="diary-form">
+                <label for="diary-title">标题</label>
+                <input id="diary-title" placeholder="为此刻命名" />
+                <label for="diary-content">内容</label>
+                <textarea id="diary-content" required placeholder="记录你的心情、故事或一个小小的闪光瞬间"></textarea>
+                <label for="diary-mood">心情</label>
+                <select id="diary-mood">
+                  <option value="hopeful">充满期待</option>
+                  <option value="sunny">晴朗轻盈</option>
+                  <option value="reflective">内省思考</option>
+                  <option value="calm">宁静舒缓</option>
+                  <option value="nostalgic">怀旧柔软</option>
+                  <option value="stormy">风暴挑战</option>
+                </select>
+                <label for="diary-tags">标签（用逗号分隔）</label>
+                <input id="diary-tags" placeholder="如：治愈, 星辰" />
+                <label>
+                  <input type="checkbox" id="diary-share" checked />
+                  与匹配对象共享这篇日记
+                </label>
+                <button type="submit">发布到我的灵感宇宙</button>
+              </form>
+            </div>
+            <div class="card panel" id="diary-list-panel">
+              <h3>我的日记</h3>
+              <div class="diary-list" id="diary-list">
+                <p class="hint">还没有日记，写下第一篇吧。</p>
+              </div>
+            </div>
+          </section>
+          <section class="dashboard-view view-columns" data-view="match" aria-label="匹配">
+            <div class="card panel" id="match-panel">
+              <h3>心动匹配</h3>
+              <div id="match-status" class="hint">准备好遇见同频的心了吗？</div>
+              <div class="actions">
+                <button id="match-request">发起匹配</button>
+                <button id="match-reset" class="secondary">重置匹配</button>
+              </div>
+            </div>
+            <div class="card panel" id="partner-panel">
+              <h3>对方的共享日记</h3>
+              <div class="partner-diaries" id="partner-diaries">
+                <p class="hint">匹配成功后即可看到对方愿意分享的日记片段。</p>
+              </div>
+            </div>
+          </section>
+          <section class="dashboard-view view-stack" data-view="profile" aria-label="个人资料">
+            <div class="card panel" id="profile-panel">
+              <h3>个人资料</h3>
+              <form id="profile-form">
+                <label for="profile-name">昵称</label>
+                <input id="profile-name" required />
+                <label for="profile-gender">性别</label>
+                <select id="profile-gender">
+                  <option value="secret">保密</option>
+                  <option value="female">女性</option>
+                  <option value="male">男性</option>
+                  <option value="non-binary">非二元</option>
+                </select>
+                <label for="profile-preference">匹配偏好</label>
+                <select id="profile-preference">
+                  <option value="any">不限</option>
+                  <option value="female">女性</option>
+                  <option value="male">男性</option>
+                  <option value="non-binary">非二元</option>
+                </select>
+                <label for="profile-bio">一句话介绍</label>
+                <textarea id="profile-bio" placeholder="给未来的匹配对象一个线索..."></textarea>
+                <button type="submit">保存资料</button>
+              </form>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
