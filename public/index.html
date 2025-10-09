@@ -10,7 +10,7 @@
     <div id="toast"></div>
     <header>
       <h1>灵感匹配日记 SoulSync</h1>
-      <p>用更轻盈的四个区域，完成灵感记录、灵魂匹配以及资料管理。邮箱、手机号或微信扫码均可快速登录。</p>
+      <p>用更轻盈的四个区域完成灵感记录、灵魂匹配与资料管理。邮箱、手机号或微信扫码任你切换，还能把手写日记扫描成电子版。</p>
     </header>
     <main>
       <section id="auth-section">
@@ -157,6 +157,7 @@
         <nav class="dashboard-tabs" id="dashboard-tabs" aria-label="功能切换">
           <button type="button" class="tab active" data-view-target="overview">概览</button>
           <button type="button" class="tab" data-view-target="journal">写日记</button>
+          <button type="button" class="tab" data-view-target="import">手写导入</button>
           <button type="button" class="tab" data-view-target="match">灵魂匹配</button>
           <button type="button" class="tab" data-view-target="profile">个人资料</button>
         </nav>
@@ -174,6 +175,15 @@
                 <p class="hint">记录几天后，这里会看到你的写作统计。</p>
               </div>
               <div id="overview-latest" class="latest-entry">最新日记会展示在这里。</div>
+            </div>
+            <div class="card panel" id="ritual-panel">
+              <h3>灵感胶囊</h3>
+              <ul class="capsule-list">
+                <li>晨间三问（感谢、期待、担心）帮助快速进入写作状态。</li>
+                <li>晚间复盘：写下最暖瞬间、最大挑战和给自己的鼓励。</li>
+                <li>灵魂名片：每周挑选一句话，构建属于你的生活宣言。</li>
+                <li>灵感收纳盒自动同步到时间轴，便于日后检索和匹配。</li>
+              </ul>
             </div>
           </section>
           <section class="dashboard-view view-columns" data-view="journal" aria-label="日记">
@@ -206,6 +216,56 @@
               <h3>我的日记</h3>
               <div class="diary-list" id="diary-list">
                 <p class="hint">还没有日记，写下第一篇吧。</p>
+              </div>
+            </div>
+            <div class="card panel" id="journal-tools">
+              <h3>灵感工作坊</h3>
+              <div class="timeline-preview">
+                <h4>最近的时间轴</h4>
+                <div id="timeline-list" class="timeline-list">
+                  <p class="hint">记录越多，时间轴越饱满，我们会帮你标注关键词和心情。</p>
+                </div>
+              </div>
+              <div class="template-grid" id="template-grid">
+                <article class="template-card">
+                  <h4>主题模板</h4>
+                  <p>灵感旅程、情绪气象、关系回声三大模板，点击即可套用常见结构。</p>
+                </article>
+                <article class="template-card">
+                  <h4>语音速记</h4>
+                  <p>在手机端用语音快速记录，系统会自动转文字并同步到这里的草稿箱。</p>
+                </article>
+                <article class="template-card">
+                  <h4>匹配攻略</h4>
+                  <p>精选问题引导你写下可共享的片段，提升灵魂匹配的成功率。</p>
+                </article>
+              </div>
+              <div class="import-tip">
+                <p class="hint">想把过往手写的故事也同步进来？到「手写导入」中批量识别与整理。</p>
+              </div>
+            </div>
+          </section>
+          <section class="dashboard-view view-columns" data-view="import" aria-label="手写日记导入">
+            <div class="card panel" id="import-panel">
+              <h3>手写日记导入</h3>
+              <p class="hint">支持批量上传手写日记照片，自动识别文字并生成草稿，可在导入前逐条校对。</p>
+              <form id="import-form">
+                <label for="import-files">选择手写日记照片</label>
+                <input id="import-files" type="file" accept="image/*" multiple />
+                <div class="import-actions">
+                  <button type="button" id="import-preview">识别文字</button>
+                  <button type="button" id="import-clear" class="secondary">清空选择</button>
+                </div>
+              </form>
+              <div id="import-selected" class="import-selected hint">尚未选择图片。</div>
+            </div>
+            <div class="card panel" id="import-results">
+              <h3>识别结果与草稿</h3>
+              <div id="import-status" class="hint">上传图片后，我们会提取日期、情绪和关键词，自动生成结构化日记。</div>
+              <div id="import-drafts" class="import-drafts"></div>
+              <div class="import-commit hidden" id="import-commit-bar">
+                <button id="import-commit">一键导入全部日记</button>
+                <button id="import-discard" class="secondary">重置草稿</button>
               </div>
             </div>
           </section>
