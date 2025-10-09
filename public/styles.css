@@ -59,9 +59,9 @@ main {
 }
 
 #auth-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
 }
 
 #auth-section h2 {
@@ -73,6 +73,50 @@ main {
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
+}
+
+.auth-card--switchable {
+  width: min(100%, 560px);
+  margin: 0 auto;
+}
+
+.auth-heading h2 {
+  margin: 0;
+}
+
+.auth-heading .hint {
+  margin-top: 0.35rem;
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.4rem;
+  border-radius: 12px;
+  background: rgba(91, 91, 214, 0.08);
+}
+
+.auth-views {
+  position: relative;
+}
+
+.auth-view {
+  display: none;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.auth-view.active {
+  display: flex;
+}
+
+.auth-view[hidden] {
+  display: none !important;
+}
+
+.auth-view h3 {
+  margin: 0;
+  font-size: 1.25rem;
 }
 
 .auth-card form + form {
@@ -128,6 +172,29 @@ button:hover:not([disabled]) {
 button[disabled] {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.auth-tabs .auth-tab {
+  flex: 1 1 0;
+  border-radius: 999px;
+  padding: 0.55rem 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.auth-tabs .auth-tab:hover {
+  background: rgba(91, 91, 214, 0.12);
+  box-shadow: none;
+  transform: none;
+}
+
+.auth-tabs .auth-tab.active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+  box-shadow: 0 10px 24px rgba(91, 91, 214, 0.22);
 }
 
 small.hint {

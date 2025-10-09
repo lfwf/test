@@ -17,6 +17,9 @@
 
   const elements = {
     authSection: document.getElementById('auth-section'),
+    authTabs: document.getElementById('auth-tabs'),
+    authTabButtons: document.querySelectorAll('[data-auth-target]'),
+    authViews: document.querySelectorAll('.auth-view'),
     dashboard: document.getElementById('dashboard'),
     dashboardTabs: document.getElementById('dashboard-tabs'),
     viewButtons: document.querySelectorAll('[data-view-target]'),
@@ -48,6 +51,7 @@
   };
 
   let activeView = 'overview';
+  let activeAuth = 'email';
 
   function switchView(view) {
     if (!view) return;
@@ -59,6 +63,29 @@
     Array.from(elements.viewButtons || []).forEach((button) => {
       if (!button) return;
       button.classList.toggle('active', button.dataset.viewTarget === view);
+    });
+  }
+
+  function switchAuth(method) {
+    if (!method) return;
+    activeAuth = method;
+    Array.from(elements.authViews || []).forEach((view) => {
+      if (!view) return;
+      const isActive = view.dataset.auth === method;
+      view.classList.toggle('active', isActive);
+      view.toggleAttribute('hidden', !isActive);
+    });
+    Array.from(elements.authTabButtons || []).forEach((button) => {
+      if (!button) return;
+      const isActive = button.dataset.authTarget === method;
+      button.classList.toggle('active', isActive);
+      if (isActive) {
+        button.setAttribute('aria-selected', 'true');
+        button.setAttribute('tabindex', '0');
+      } else {
+        button.setAttribute('aria-selected', 'false');
+        button.setAttribute('tabindex', '-1');
+      }
     });
   }
 
@@ -136,6 +163,7 @@
   function showAuth() {
     elements.dashboard.classList.add('hidden');
     elements.authSection.classList.remove('hidden');
+    switchAuth(activeAuth);
   }
 
   async function handleEmailRequest(event) {
@@ -669,9 +697,49 @@
     elements.diaryForm.addEventListener('submit', handleDiarySubmit);
     elements.matchRequest.addEventListener('click', handleMatchRequest);
     elements.matchReset.addEventListener('click', handleMatchReset);
+    if (elements.authTabs) {
+      elements.authTabs.addEventListener('click', (event) => {
+        const button = event.target.closest('[data-auth-target]');
+        if (!button) return;
+        event.preventDefault();
+        switchAuth(button.dataset.authTarget);
+        button.focus();
+      });
+      elements.authTabs.addEventListener('keydown', (event) => {
+        const tabs = Array.from(elements.authTabButtons || []);
+        if (!tabs.length) return;
+        const currentIndex = tabs.findIndex((tab) => tab.dataset.authTarget === activeAuth);
+        let nextIndex = currentIndex;
+        switch (event.key) {
+          case 'ArrowRight':
+          case 'ArrowDown':
+            nextIndex = (currentIndex + 1 + tabs.length) % tabs.length;
+            break;
+          case 'ArrowLeft':
+          case 'ArrowUp':
+            nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+            break;
+          case 'Home':
+            nextIndex = 0;
+            break;
+          case 'End':
+            nextIndex = tabs.length - 1;
+            break;
+          default:
+            return;
+        }
+        event.preventDefault();
+        const nextTab = tabs[nextIndex];
+        if (nextTab) {
+          switchAuth(nextTab.dataset.authTarget);
+          nextTab.focus();
+        }
+      });
+    }
     Array.from(elements.viewButtons || []).forEach((button) => {
       button.addEventListener('click', () => switchView(button.dataset.viewTarget));
     });
+    switchAuth(activeAuth);
   }
 
   document.addEventListener('DOMContentLoaded', () => {
