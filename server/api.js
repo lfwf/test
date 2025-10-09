@@ -57,6 +57,14 @@ function createApiHandler(context) {
         await diary.createDiary(req, res, context);
         return;
       }
+      if (req.method === 'POST' && url.pathname === '/api/diaries/import-handwritten/preview') {
+        await diary.previewHandwrittenImport(req, res, context);
+        return;
+      }
+      if (req.method === 'POST' && url.pathname === '/api/diaries/import-handwritten/commit') {
+        await diary.commitHandwrittenImport(req, res, context);
+        return;
+      }
       if (req.method === 'GET' && url.pathname === '/api/diaries/insights') {
         await diary.getInsights(req, res, context);
         return;
