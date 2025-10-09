@@ -104,20 +104,6 @@
         button.setAttribute('tabindex', '-1');
       }
     });
-
-    if (method === 'wechat') {
-      if (currentWechat && currentWechat.expiresAt) {
-        startWechatCountdown(currentWechat.expiresAt);
-      } else if (!currentWechat) {
-        setTimeout(() => {
-          if (activeAuth === 'wechat') {
-            generateWechat();
-          }
-        }, 80);
-      }
-    } else {
-      stopWechatCountdown();
-    }
   }
 
   function updateDashboardMeta() {
@@ -1234,25 +1220,6 @@
     elements.diaryForm.addEventListener('submit', handleDiarySubmit);
     elements.matchRequest.addEventListener('click', handleMatchRequest);
     elements.matchReset.addEventListener('click', handleMatchReset);
-    if (elements.importFiles) {
-      elements.importFiles.addEventListener('change', handleImportSelection);
-    }
-    if (elements.importPreview) {
-      elements.importPreview.addEventListener('click', handleImportPreview);
-    }
-    if (elements.importClear) {
-      elements.importClear.addEventListener('click', handleImportClear);
-    }
-    if (elements.importCommit) {
-      elements.importCommit.addEventListener('click', handleImportCommit);
-    }
-    if (elements.importDiscard) {
-      elements.importDiscard.addEventListener('click', handleImportDiscard);
-    }
-    if (elements.importDrafts) {
-      elements.importDrafts.addEventListener('input', handleImportDraftChange);
-      elements.importDrafts.addEventListener('change', handleImportDraftChange);
-    }
     if (elements.authTabs) {
       elements.authTabs.addEventListener('click', (event) => {
         const button = event.target.closest('[data-auth-target]');
@@ -1295,8 +1262,6 @@
     Array.from(elements.viewButtons || []).forEach((button) => {
       button.addEventListener('click', () => switchView(button.dataset.viewTarget));
     });
-    renderImportSelection();
-    renderImportDrafts();
     switchAuth(activeAuth);
   }
 

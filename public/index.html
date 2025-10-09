@@ -128,12 +128,7 @@
             >
               <h3>微信扫码登录（开发模拟）</h3>
               <div id="wechat-board">
-                <div class="wechat-actions">
-                  <button id="wechat-generate">生成扫码二维码</button>
-                  <button id="wechat-refresh" class="secondary hidden">重新生成</button>
-                </div>
-                <div id="wechat-status" class="hint">生成二维码后，用手机微信扫码即可登录。</div>
-                <div id="wechat-countdown" class="hint subtle"></div>
+                <button id="wechat-generate">生成扫码二维码</button>
                 <div id="wechat-qr" class="qr-board hidden"></div>
                 <div id="wechat-token" class="hint"></div>
                 <div id="wechat-simulator" class="hidden">
@@ -146,7 +141,6 @@
                     <option value="non-binary">非二元</option>
                   </select>
                   <button type="button" id="wechat-confirm">模拟扫码确认</button>
-                  <small class="hint">真实环境下由手机端确认，桌面端会自动完成登录。</small>
                 </div>
               </div>
             </section>
